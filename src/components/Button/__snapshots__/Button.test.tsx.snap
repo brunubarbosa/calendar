@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The button Should renders with full width 1`] = `
+<div>
+  <button
+    class="button
+        small
+        primary
+        full
+        "
+    data-testid="defaultButton"
+    type="button"
+  >
+    Default
+  </button>
+</div>
+`;
+
+exports[`The button Should take a snapshot 1`] = `
+<div>
+  <button
+    class="button
+        small
+        primary
+        
+        "
+    data-testid="defaultButton"
+    type="button"
+  >
+    Default
+  </button>
+</div>
+`;

@@ -1,0 +1,109 @@
+@import "../../styles/themes";
+
+.button {
+  display: flex;
+  justify-content: center;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 10.8px;
+  cursor: pointer;
+
+  color: $light;
+
+  border-radius: 1000px;
+  // @include shallowBoxShadow();
+  pointer-events: all;
+  border-width: 0px;
+  border: 1px solid transparent;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.primary {
+    color: $white;
+    border: 1px solid transparent;
+    background-color: $primary;
+    // @include roleColorsPrimary(background-color);
+
+    &:hover {
+      // @include roleColorsPrimaryHover(background-color);
+    }
+  }
+
+  &.secondary {
+    background-color: $white;
+
+    // @include roleColorsSecondary(color);
+    // @include roleColorsSecondary(border-color);
+
+    &:hover {
+      color: $white;
+      // @include roleColorsSecondaryHover(background-color);
+    }
+  }
+
+  &.accentPrimary {
+    color: $white;
+    // @include roleColorsAccentPrimary(background-color);
+
+    &:hover {
+      color: $white;
+      // @include roleColorsAccentPrimaryHover(background-color);
+    }
+  }
+
+  &.accentSecondary {
+    background-color: $white;
+    // @include roleColorsAccentSecondary(border-color);
+    // @include roleColorsAccentSecondary(color);
+
+    &:hover {
+      color: $white;
+      // @include roleColorsAccentSecondaryHover(background-color);
+    }
+  }
+
+  &.negativePrimary {
+    color: $white;
+    // @include roleColorsNegativePrimary(background-color);
+
+    &:hover {
+      color: $white;
+      // @include roleColorsNegativePrimaryHover(background-color);
+    }
+  }
+
+  &.negativeSecondary {
+    background-color: $white;
+    // @include roleColorsNegativeSecondary(color);
+    // @include roleColorsNegativeSecondary(border-color);
+
+    &:hover {
+      color: $white;
+      // @include roleColorsNegativeSecondaryHover(background-color);
+    }
+  }
+
+  &.disabled {
+    background-color: $white;
+    border-color: $dark;
+    color: $dark;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &.small {
+    padding: 9.5px 16px;
+  }
+
+  &.large {
+    padding: 14px 26px;
+  }
+  &.full {
+    width: 100%;
+    padding: 15px 26px;
+  }
+}
