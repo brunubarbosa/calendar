@@ -1,0 +1,10 @@
+{
+  "extends": "react-app",
+  "rules": {
+    "no-console": "warn",
+    "quotes": ["warn", "single"],
+    "semi": ["warn", "always"],
+    "indent": ["warn", 2],
+    "no-multi-spaces": ["warn"]
+  }
+}

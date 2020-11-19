@@ -2,7 +2,9 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const App: React.FunctionComponent<{}> = () => {
+  let x;
+  console.log('gg');
   return (
     <div className="App">
       <header className="App-header">
@@ -21,6 +23,6 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
 export default App;
