@@ -5,11 +5,7 @@ import Button from './components/Button';
 import Main from './containers/Main';
 
 const App: React.FunctionComponent<{}> = () => {
-  return (
-    <div className="App">
-      <Main />
-    </div>
-  );
+  return <Main />;
 };
 
 export default App;

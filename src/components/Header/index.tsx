@@ -2,7 +2,7 @@ import React, {FormEvent} from 'react';
 import styles from './Header.module.scss';
 import logo from '../../images/logo.png';
 
-const App: React.FunctionComponent<{}> = () => {
+const Header: React.FunctionComponent<{}> = () => {
   const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const searchValue = event.currentTarget.searchValue.value;
@@ -23,4 +23,4 @@ const App: React.FunctionComponent<{}> = () => {
   );
 };
 
-export default App;
+export default Header;

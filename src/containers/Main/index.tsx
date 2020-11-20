@@ -5,7 +5,7 @@ import Button from '../../components/Button';
 import EmptyPage from '../../components/EmptyPage';
 import emptyContent from '../../images/empty-content.png';
 
-const App: React.FunctionComponent<{}> = () => {
+const Main: React.FunctionComponent<{}> = () => {
   return (
     <div className={styles.wrapper}>
       <Header />
@@ -14,4 +14,4 @@ const App: React.FunctionComponent<{}> = () => {
   );
 };
 
-export default App;
+export default Main;

@@ -8,7 +8,7 @@ const EmptySpace: React.FunctionComponent<{}> = () => {
     <div className={styles.wrapper}>
       <img alt="emptyContent" src={emptyContent} />
       <span>Nenhum contato foi criado ainda.</span>
-      <Button text="Criar contato" />
+      <Button size="small" text="Criar contato" />
     </div>
   );
 };
