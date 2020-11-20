@@ -6,8 +6,14 @@ import emptyContent from '../../images/empty-content.png';
 const EmptySpace: React.FunctionComponent<{}> = () => {
   return (
     <div className={styles.wrapper}>
-      <img alt="emptyContent" src={emptyContent} />
-      <span>Nenhum contato foi criado ainda.</span>
+      <img
+        className={styles.emptyImage}
+        alt="emptyContent"
+        src={emptyContent}
+      />
+      <span className={styles.emptyMessage}>
+        Nenhum contato foi criado ainda.
+      </span>
       <Button size="small" text="Criar contato" />
     </div>
   );
