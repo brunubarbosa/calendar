@@ -1,7 +1,6 @@
 import React, {FormEvent} from 'react';
 import styles from './Header.module.scss';
 import logo from '../../images/logo.png';
-import emptyContent from '../../images/empty-content.png';
 
 const App: React.FunctionComponent<{}> = () => {
   const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
@@ -10,12 +9,16 @@ const App: React.FunctionComponent<{}> = () => {
     console.log(searchValue);
   };
   return (
-    <header className={styles.wrapper}>
+    <header className={styles.header}>
       <img alt="logo" src={logo} />
-      <form onSubmit={onSubmitForm}>
-        <input name="searchValue" type="text" placeholder="Buscar..." />
+      <form onSubmit={onSubmitForm} className={styles.form}>
+        <input
+          className={styles.inputSearch}
+          name="searchValue"
+          type="text"
+          placeholder="Buscar..."
+        />
       </form>
-      <img alt="emptyContent" src={emptyContent} />
     </header>
   );
 };
