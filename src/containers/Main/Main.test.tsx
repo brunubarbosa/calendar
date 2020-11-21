@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, fireEvent} from '@testing-library/react';
+import {render, fireEvent, waitFor} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import Main from './index';
@@ -29,12 +29,12 @@ describe('Test Main component empty state', () => {
   });
 });
 describe('Test main component add item action', () => {
-  it('Should find add item form', () => {
-    const {getByDisplayValue, getByText} = render(<Main />);
+  it('Should find add item form fields', () => {
+    const {getByText, getByLabelText} = render(<Main />);
     fireEvent.click(getByText('Criar contato'));
-    expect(getByDisplayValue('name')).toBeTruthy();
-    expect(getByDisplayValue('email')).toBeTruthy();
-    expect(getByDisplayValue('tel')).toBeTruthy();
+    expect(getByLabelText('Nome')).toBeTruthy();
+    expect(getByLabelText('E-mail')).toBeTruthy();
+    expect(getByLabelText('Telefone')).toBeTruthy();
   });
   it('Should find save button disabled with no data filled', () => {
     const {getByText} = render(<Main />);
@@ -42,14 +42,13 @@ describe('Test main component add item action', () => {
     const saveButton = getByText('Salvar');
     expect(saveButton).toBeDisabled();
   });
-  it('Should ', () => {
+  it('Should test if is able to submit form after fill an input', async () => {
     const {getByText, getByLabelText} = render(<Main />);
     fireEvent.click(getByText('Criar contato'));
     const saveButton = getByText('Salvar');
     const nameValue = 'Maria';
-    fireEvent.change(getByLabelText('Nome'), {
-      target: {value: nameValue},
-    });
+    const nameInput = getByLabelText('Nome', {selector: 'input'});
+    fireEvent.input(nameInput, {target: {value: nameValue}});
     expect(saveButton).not.toBeDisabled();
   });
 });
