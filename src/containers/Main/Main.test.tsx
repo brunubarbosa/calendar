@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-  render,
-  fireEvent,
-  getByPlaceholderText,
-  getByLabelText,
-} from '@testing-library/react';
+import {render, fireEvent} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import Main from './index';
-
-const mockfc = jest.fn();
 
 describe('Test Main component empty state', () => {
   it('Should find image logo', () => {
