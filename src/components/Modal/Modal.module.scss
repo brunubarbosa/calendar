@@ -1,0 +1,115 @@
+@import "../../styles/themes";
+
+.container {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  &.open {
+    display: flex;
+    position: fixed;
+    z-index: 5;
+    transition: opacity linear 0.15s;
+    opacity: 1;
+  }
+
+  .modal {
+    max-height: 90vh;
+    max-width: 90vw;
+    display: flex;
+    flex-flow: column;
+    z-index: 10;
+    overflow: hidden;
+
+    border-radius: 3px;
+    background-color: $white;
+    box-shadow: 0 3px 9px red;
+
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 18px 24px;
+
+      .title {
+        font-size: 20px;
+        font-weight: 400;
+        padding: 0;
+        margin: 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      &.withButtonClose {
+        justify-content: flex-end;
+
+        &.withTitle {
+          justify-content: space-between;
+        }
+      }
+
+      .buttonClose {
+        border: 0;
+        background-color: transparent;
+        margin-right: -3px;
+        cursor: pointer;
+        transition: opacity 0.2s;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    .content {
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      flex-flow: column;
+
+      .children {
+        display: relative;
+        height: 100%;
+        overflow: auto;
+        overflow-wrap: break-word;
+      }
+    }
+  }
+
+  .background {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    left: 0;
+  }
+}
+
+/*
+* Set media query only for extra small devices. 
+* All other screen sizes will assume the children width
+*/
+@media only screen and (max-width: 600px) {
+  .container {
+    .modal {
+      width: 95vw;
+
+      .content {
+        .children {
+          > * {
+            margin: auto;
+          }
+        }
+      }
+    }
+  }
+}

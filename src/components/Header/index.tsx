@@ -6,7 +6,6 @@ const Header: React.FunctionComponent<{}> = () => {
   const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const searchValue = event.currentTarget.searchValue.value;
-    console.log(searchValue);
   };
   return (
     <header className={styles.header}>

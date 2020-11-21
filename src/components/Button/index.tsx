@@ -28,26 +28,26 @@ const Button: React.FC<ButtonProps> = ({
   text,
   children,
   onClick,
-  isLoading = false,
-  disabled = false,
+  disabled,
   kind = 'primary',
   size = 'small',
   type = 'button',
   full = false,
-}) => (
-  <button
-    data-testid="defaultButton"
-    className={`${styles.button}
+}) => {
+  return (
+    <button
+      className={`${styles.button}
         ${styles[size]}
-        ${isLoading || disabled ? styles.disabled : styles[kind]}
+        ${disabled ? styles.disabled : styles[kind]}
         ${full ? `${styles.full}` : ''}
         `}
-    type={type}
-    onClick={onClick}
-    disabled={isLoading || disabled}
-  >
-    {text || children}
-  </button>
-);
+      type={type}
+      onClick={onClick}
+      disabled={disabled || undefined}
+    >
+      {text || children}
+    </button>
+  );
+};
 
 export default Button;

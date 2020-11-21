@@ -8,7 +8,6 @@ exports[`The button Should renders with full width 1`] = `
         primary
         full
         "
-    data-testid="defaultButton"
     type="button"
   >
     Default
@@ -24,7 +23,6 @@ exports[`The button Should take a snapshot 1`] = `
         primary
         
         "
-    data-testid="defaultButton"
     type="button"
   >
     Default
