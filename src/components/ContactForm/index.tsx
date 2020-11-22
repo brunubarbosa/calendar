@@ -1,8 +1,9 @@
-import React, {useMemo} from 'react';
+import React, {useContext} from 'react';
 import styles from './ContactForm.module.scss';
 import Button from '../Button';
 import {useForm} from 'react-hook-form';
 import Modal from '../Modal';
+import {StateContext} from '../../containers/Main';
 interface FormDataTypes {
   name: string;
   email: string;
@@ -11,24 +12,19 @@ interface FormDataTypes {
 
 interface ContactFormProps {
   isOpen: boolean;
-  initialValues?: Partial<FormDataTypes>;
   onSubmit(data: FormDataTypes): void;
   onCloseModal(): void;
 }
 
 const ContactForm: React.FunctionComponent<ContactFormProps> = ({
   isOpen,
-  initialValues,
   onSubmit,
   onCloseModal,
 }) => {
-  const {register, handleSubmit, formState, getValues} = useForm<FormDataTypes>(
-    {
-      reValidateMode: 'onChange',
-      defaultValues: undefined,
-    },
-  );
-
+  const {
+    createForm: {register, handleSubmit, formState, getValues},
+    contactData,
+  } = useContext(StateContext);
   return (
     <div className={styles.wrapper}>
       <Modal isOpen={isOpen} onClose={onCloseModal} clickOutsideToClose={true}>
