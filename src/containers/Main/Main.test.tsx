@@ -1,8 +1,25 @@
 import React from 'react';
-import {render, fireEvent, waitFor} from '@testing-library/react';
+import {render, fireEvent, waitFor, screen} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-
+import {StateContext} from '../Main';
 import Main from './index';
+import {act} from 'react-dom/test-utils';
+import {debug} from 'console';
+
+const customRender = (ui: any, {providerProps, ...renderOptions}: any) => {
+  return render(
+    <StateContext.Provider {...providerProps}>{ui}</StateContext.Provider>,
+    renderOptions,
+  );
+};
+
+function renderUserGreeter(user: any) {
+  return render(
+    <StateContext.Provider value={user}>
+      <Main />
+    </StateContext.Provider>,
+  );
+}
 
 describe('Test Main component empty state', () => {
   it('Should find image logo', () => {
@@ -50,5 +67,20 @@ describe('Test main component add item action', () => {
     const nameInput = getByLabelText('Nome', {selector: 'input'});
     fireEvent.input(nameInput, {target: {value: nameValue}});
     expect(saveButton).not.toBeDisabled();
+  });
+  it('Should add a new contact and make sure that it was created', async () => {
+    const {getByText, getByLabelText} = render(<Main />);
+    act(() => {
+      fireEvent.click(getByText('Criar contato'));
+    });
+    const nameValue = 'Maria';
+    const saveButton = getByText('Salvar');
+    const nameInput = getByLabelText('Nome', {selector: 'input'});
+
+    fireEvent.input(nameInput, {
+      target: {value: nameValue},
+    });
+    fireEvent.click(saveButton, {});
+    await waitFor(() => expect(getByText(nameValue)).toBeInTheDocument());
   });
 });
