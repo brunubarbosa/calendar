@@ -1,0 +1,28 @@
+.wrapper {
+  .title {
+    color: #2a2d3b;
+    font-weight: normal;
+    border-bottom: 1px solid #c0c3d2;
+    margin-bottom: 19.5px;
+  }
+  .form {
+    padding: 0 24px;
+    .fieldWrapper {
+      display: flex;
+      flex-direction: column;
+      max-width: 384px;
+
+      &.tel {
+        max-width: 128px;
+      }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      border-top: 1px solid #c0c3d2;
+      padding: 16px 5px;
+      margin-top: 22px;
+    }
+  }
+}
