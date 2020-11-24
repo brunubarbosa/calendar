@@ -6,7 +6,6 @@ import styles from './Modal.module.scss';
 export type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  buttonClose?: boolean;
   buttonFloatText?: string;
   onButtonFloatClick?: () => void;
   title?: string;
@@ -20,7 +19,6 @@ export type ModalProps = {
 const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-  buttonClose = true,
   title,
   buttonFloatText,
   onButtonFloatClick,
@@ -43,25 +41,6 @@ const Modal: React.FC<ModalProps> = ({
     >
       {isOpen && (
         <div className={`${styles.modal}`} role="dialog">
-          {buttonClose || title ? (
-            <div
-              className={`${styles.header} ${title && styles.withTitle} ${
-                buttonClose && styles.withButtonClose
-              }`}
-            >
-              {title && <h4 className={styles.title}>{title}</h4>}
-
-              {buttonClose && (
-                <button
-                  className={styles.buttonClose}
-                  onClick={onClose}
-                  data-testid="buttonClose"
-                >
-                  X
-                </button>
-              )}
-            </div>
-          ) : null}
           <div className={styles.content} style={style}>
             <div
               className={`${styles.children} ${
