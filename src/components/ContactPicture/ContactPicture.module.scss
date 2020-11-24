@@ -1,0 +1,12 @@
+@import "../../styles/themes";
+
+.wrapper {
+  height: 24px;
+  width: 24px;
+  background-color: red;
+  border-radius: 50%;
+  color: $white;
+  display: inline-flex;
+  justify-content: center;
+  margin-right: 16px;
+}
