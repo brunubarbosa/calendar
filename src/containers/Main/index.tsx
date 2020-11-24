@@ -39,7 +39,6 @@ const Main: React.FunctionComponent<{}> = () => {
 
   const scheduleHighlight = (newContact: any, allContacts: any) => {
     setTimeout(() => {
-      console.log(newContact);
       setContactData([...allContacts, {...newContact, recentlyAdded: false}]);
     }, 1000);
 
