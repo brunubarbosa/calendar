@@ -21,30 +21,45 @@ const ContactForm: React.FunctionComponent<ContactFormProps> = ({
   onSubmit,
   onCloseModal,
 }) => {
-  const {
-    createForm: {register, handleSubmit, formState, getValues},
-    contactData,
-  } = useContext(StateContext);
+  const {createForm, contactData} = useContext(StateContext);
+  console.log(createForm?.register);
   return (
     <div className={styles.wrapper}>
       <Modal isOpen={isOpen} onClose={onCloseModal} clickOutsideToClose={true}>
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className={styles.form}
+          onSubmit={createForm?.handleSubmit(onSubmit)}
+        >
           <h1 className={styles.title}>Criar novo contato</h1>
           <div className={styles.fieldWrapper}>
             <label htmlFor="name">Nome</label>
-            <input ref={register} type="text" name="name" id="name" />
+            <input
+              ref={createForm?.register}
+              type="text"
+              name="name"
+              id="name"
+            />
           </div>
           <div className={styles.fieldWrapper}>
             <label htmlFor="email">E-mail</label>
-            <input ref={register} type="text" name="email" id="email" />
+            <input
+              ref={createForm?.register}
+              type="text"
+              name="email"
+              id="email"
+            />
           </div>
           <div className={`${styles.fieldWrapper} ${styles.tel}`}>
             <label htmlFor="tel">Telefone</label>
-            <input ref={register} type="text" name="tel" id="tel" />
+            <input ref={createForm?.register} type="text" name="tel" id="tel" />
           </div>
           <footer className={styles.footer}>
             <Button text="Cancelar" kind="secondary" />
-            <Button disabled={!formState.isDirty} text="Salvar" type="submit" />
+            <Button
+              disabled={!createForm?.formState.isDirty}
+              text="Salvar"
+              type="submit"
+            />
           </footer>
         </form>
       </Modal>

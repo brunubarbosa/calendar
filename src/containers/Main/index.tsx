@@ -3,56 +3,54 @@ import styles from './Main.module.scss';
 import Header from '../../components/Header';
 import EmptyPage from '../../components/EmptyPage';
 import ContactForm from '../../components/ContactForm';
-import {useForm} from 'react-hook-form';
+import {useForm, UseFormMethods} from 'react-hook-form';
 import {v4 as uuidv4} from 'uuid';
 import ContactsList from '../../components/ContactsList';
 import getFirstLetter from '../../utils/getFirstLetter';
 import ContactPicture from '../../components/ContactPicture';
+import {ContacDataType, FormDataType} from '../../types/contact';
+
 export const StateContext = createContext<{
-  createForm?: any;
-  contactData?: any;
+  createForm?: UseFormMethods<Partial<FormDataType>>;
+  contactData?: ContacDataType[];
   editContact?: any;
   setIsModalContactOpen?: any;
   deleteContact?: any;
 }>({});
 
-interface FormDataTypes {
-  name: string;
-  email: string;
-  tel: string;
-}
-
 const Main: React.FunctionComponent<{}> = () => {
   const [isModalContactOpen, setIsModalContactOpen] = useState<boolean>(false);
-  const [contactData, setContactData] = useState<any>([]);
+  const [contactData, setContactData] = useState<ContacDataType[]>([]);
   const [editingContactId, setEditingContactId] = useState<string | null>(null);
 
   const onAddContact = () => {
     setIsModalContactOpen(true);
   };
 
-  const replaceContact = (newContact: any, id: string) => {
+  const replaceContact = (newContact: FormDataType) => {
     return contactData.map((item: any) =>
       item.id === editingContactId ? {...item, ...newContact} : item,
     );
   };
 
-  const scheduleHighlight = (newContact: any, allContacts: any) => {
+  const scheduleHighlight = (
+    newContact: ContacDataType,
+    allContacts: ContacDataType[],
+  ) => {
+    console.log(allContacts);
     setTimeout(() => {
       setContactData([...allContacts, {...newContact, recentlyAdded: false}]);
     }, 1000);
-
-    return true;
   };
 
-  const onSubmitContactForm = (data: any) => {
+  const onSubmitContactForm = (data: FormDataType) => {
     setEditingContactId(null);
     setIsModalContactOpen(false);
     const contactId = uuidv4();
     //melhorar
     const picture = <ContactPicture content={getFirstLetter(data.name)} />;
     const newDataToAdd = editingContactId
-      ? replaceContact(data, editingContactId)
+      ? replaceContact(data)
       : [
           ...contactData,
           {
@@ -86,12 +84,12 @@ const Main: React.FunctionComponent<{}> = () => {
     setContactData(removedContact);
   };
 
-  const createForm = useForm<FormDataTypes>({
+  const createForm = useForm<Partial<FormDataType>>({
     reValidateMode: 'onChange',
   });
-  const editContact = (item: any) => {
-    createForm.reset(item);
-    setEditingContactId(item.id);
+  const editContact = (id: string) => {
+    createForm.reset();
+    setEditingContactId(id);
   };
   return (
     <StateContext.Provider

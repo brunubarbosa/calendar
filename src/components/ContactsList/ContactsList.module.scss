@@ -30,4 +30,11 @@ table {
   .highlightedRow {
     background-color: #fff3f2;
   }
+
+  .actionButton {
+    background-color: transparent;
+    border: none;
+    margin-right: 25px;
+    cursor: pointer;
+  }
 }

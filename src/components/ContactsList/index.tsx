@@ -2,13 +2,11 @@ import React, {useContext} from 'react';
 import styles from './ContactsList.module.scss';
 import {StateContext} from '../../containers/Main';
 import {useTable} from 'react-table';
-import ContactPicture from '../ContactPicture';
-import getFirstLetter from '../../utils/getFirstLetter';
-interface ContactsListProps {
-  contactData?: any;
-}
+import {TableDataType} from '../../types/tableData';
+import {columns} from '../../constants/tableData';
+import {FaPencilAlt, FaTrashAlt} from 'react-icons/fa';
 
-const ContactsList: React.FunctionComponent<ContactsListProps> = ({}) => {
+const ContactsList: React.FunctionComponent<{}> = ({}) => {
   const {
     contactData,
     editContact,
@@ -16,56 +14,43 @@ const ContactsList: React.FunctionComponent<ContactsListProps> = ({}) => {
     deleteContact,
   } = useContext(StateContext);
 
-  const tableData = contactData.map((contact: any) => ({
-    name: (
-      <>
-        {contact.picture}
-        {contact.name}
-      </>
-    ),
-    tel: contact.tel,
-    email: contact.email,
-    id: contact.id,
-    isHighlighted: contact.recentlyAdded,
-    actions: (
-      <>
-        {' '}
-        <button
-          onClick={() => {
-            editContact(contact);
-            setIsModalContactOpen(true);
-          }}
-        >
-          editar
-        </button>
-        <button onClick={() => deleteContact(contact.id)}>excluir</button>
-      </>
-    ),
-  }));
+  const tableData: TableDataType[] =
+    contactData?.map(
+      ({picture, name, tel, email, recentlyAdded, id}): TableDataType => ({
+        name: (
+          <>
+            {picture}
+            {name}
+          </>
+        ),
+        tel: tel,
+        email: email,
+        id: id,
+        isHighlighted: recentlyAdded,
+        actions: (
+          <>
+            {' '}
+            <button
+              className={styles.actionButton}
+              onClick={() => {
+                editContact(id);
+                setIsModalContactOpen(true);
+              }}
+            >
+              <FaPencilAlt />
+            </button>
+            <button
+              className={styles.actionButton}
+              onClick={() => deleteContact(id)}
+            >
+              <FaTrashAlt />
+            </button>
+          </>
+        ),
+      }),
+    ) || [];
 
-  const data = React.useMemo(() => tableData, [contactData]);
-
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: 'Nome',
-        accessor: 'name',
-      },
-      {
-        Header: 'E-mail',
-        accessor: 'email',
-      },
-      {
-        Header: 'Telefone',
-        accessor: 'tel',
-      },
-      {
-        Header: '',
-        accessor: 'actions',
-      },
-    ],
-    [],
-  );
+  const data = React.useMemo(() => tableData || [], [contactData]);
 
   const {
     getTableProps,
@@ -74,10 +59,11 @@ const ContactsList: React.FunctionComponent<ContactsListProps> = ({}) => {
     rows,
     prepareRow,
   } = useTable<any>({columns, data});
+
   const isRowHighlighted = (row: any) => {
     const id = row.original.id;
-    const {isHighlighted} = tableData.find((contact: any) => contact.id === id);
-    return isHighlighted;
+    const item = tableData?.find((contact) => contact.id === id);
+    return item?.isHighlighted;
   };
 
   return (
