@@ -5,6 +5,7 @@
     font-weight: normal;
     border-bottom: 1px solid #c0c3d2;
     margin-bottom: 19.5px;
+    padding-left: 16px;
   }
   .message {
     padding-left: 24px;
@@ -15,5 +16,9 @@
     justify-content: flex-end;
     border-top: 1px solid #c0c3d2;
     padding: 16px 5px;
+
+    button + button {
+      margin-left: 16px;
+    }
   }
 }
