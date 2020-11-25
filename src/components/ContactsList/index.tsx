@@ -11,7 +11,7 @@ const ContactsList: React.FunctionComponent<{}> = ({}) => {
     contactData,
     editContact,
     setIsModalContactOpen,
-    deleteContact,
+    setDeleteContactId,
   } = useContext(StateContext);
 
   const tableData: TableDataType[] =
@@ -41,7 +41,7 @@ const ContactsList: React.FunctionComponent<{}> = ({}) => {
             </button>
             <button
               className={styles.actionButton}
-              onClick={() => deleteContact(id)}
+              onClick={() => setDeleteContactId(id)}
             >
               <FaTrashAlt />
             </button>

@@ -9,19 +9,21 @@ import ContactsList from '../../components/ContactsList';
 import getFirstLetter from '../../utils/getFirstLetter';
 import ContactPicture from '../../components/ContactPicture';
 import {ContacDataType, FormDataType} from '../../types/contact';
+import ConfirmModal from '../../components/ConfirmModal/index';
 
 export const StateContext = createContext<{
   createForm?: UseFormMethods<Partial<FormDataType>>;
   contactData?: ContacDataType[];
   editContact?: any;
   setIsModalContactOpen?: any;
-  deleteContact?: any;
+  setDeleteContactId?: any;
 }>({});
 
 const Main: React.FunctionComponent<{}> = () => {
   const [isModalContactOpen, setIsModalContactOpen] = useState<boolean>(false);
   const [contactData, setContactData] = useState<ContacDataType[]>([]);
   const [editingContactId, setEditingContactId] = useState<string | null>(null);
+  const [deleteContactId, setDeleteContactId] = useState<string | null>(null);
 
   const onAddContact = () => {
     setIsModalContactOpen(true);
@@ -77,18 +79,20 @@ const Main: React.FunctionComponent<{}> = () => {
     setIsModalContactOpen(false);
   };
 
-  const deleteContact = (id: string) => {
+  const deleteContact = () => {
     const removedContact = contactData.filter(
-      (contact: any) => contact.id !== id,
+      (contact) => contact.id !== deleteContactId,
     );
     setContactData(removedContact);
+    setDeleteContactId(null);
   };
 
   const createForm = useForm<Partial<FormDataType>>({
     reValidateMode: 'onChange',
   });
   const editContact = (id: string) => {
-    createForm.reset();
+    const itemToEdit = contactData.find((contact) => contact.id === id);
+    createForm.reset(itemToEdit);
     setEditingContactId(id);
   };
   return (
@@ -98,7 +102,7 @@ const Main: React.FunctionComponent<{}> = () => {
         createForm,
         editContact,
         setIsModalContactOpen,
-        deleteContact,
+        setDeleteContactId,
       }}
     >
       <div className={styles.wrapper}>
@@ -112,6 +116,13 @@ const Main: React.FunctionComponent<{}> = () => {
           onCloseModal={onCloseModal}
           isOpen={isModalContactOpen}
           onSubmit={onSubmitContactForm}
+        />
+        <ConfirmModal
+          isOpen={!!deleteContactId}
+          onCancel={() => setDeleteContactId(null)}
+          onConfirm={deleteContact}
+          message="Deseja realmente excluir o contato?"
+          title="Excluir contato"
         />
       </div>
     </StateContext.Provider>
