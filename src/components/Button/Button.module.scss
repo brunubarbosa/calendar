@@ -35,7 +35,7 @@
   }
 
   &.accentPrimary {
-    color: $white;
+    color: $white-two;
     border: 1px solid transparent;
     background-color: $salmon;
     border: solid 1px rgba(255, 255, 255, 0.16);
@@ -49,14 +49,6 @@
   &.secondary {
     background-color: transparent;
     color: $salmon;
-  }
-
-  &.disabled {
-    background-color: $white;
-    border-color: $dark;
-    color: $dark;
-    cursor: not-allowed;
-    opacity: 0.6;
   }
 
   &.small {

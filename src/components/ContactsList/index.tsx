@@ -29,7 +29,6 @@ const ContactsList: React.FunctionComponent<{}> = () => {
         isHighlighted: recentlyAdded,
         actions: (
           <>
-            {' '}
             <button
               aria-label="Editar"
               className={styles.actionButton}
