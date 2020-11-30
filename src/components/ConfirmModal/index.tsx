@@ -1,11 +1,9 @@
-import React, {FormEvent} from 'react';
+import React from 'react';
 import styles from './ConfirmModal.module.scss';
-import logo from '../../images/logo.png';
 import Button from '../Button';
 import Modal from '../Modal';
 
 interface ConfirmModalType {
-  onClose?(): void;
   onConfirm(): void;
   onCancel(): void;
   isOpen: boolean;
@@ -13,7 +11,6 @@ interface ConfirmModalType {
   message: string;
 }
 const ConfirmModal: React.FunctionComponent<ConfirmModalType> = ({
-  onClose,
   onConfirm,
   onCancel,
   isOpen,
@@ -26,8 +23,8 @@ const ConfirmModal: React.FunctionComponent<ConfirmModalType> = ({
         <h1 className={styles.title}>{title}</h1>
         <span className={styles.message}>{message}</span>
         <footer className={styles.footer}>
-          <Button text="Cancelar" />
-          <Button onClick={onConfirm} text="Excluir" />
+          <Button onClick={onCancel} kind="secondary" text="Cancelar" />
+          <Button onClick={onConfirm} kind="accentPrimary" text="Excluir" />
         </footer>
       </div>
     </Modal>

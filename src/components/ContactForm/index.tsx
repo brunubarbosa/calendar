@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 import styles from './ContactForm.module.scss';
 import Button from '../Button';
-import {useForm} from 'react-hook-form';
 import Modal from '../Modal';
 import {StateContext} from '../../containers/Main';
 interface FormDataTypes {
@@ -21,8 +20,7 @@ const ContactForm: React.FunctionComponent<ContactFormProps> = ({
   onSubmit,
   onCloseModal,
 }) => {
-  const {createForm, contactData} = useContext(StateContext);
-  console.log(createForm?.register);
+  const {createForm} = useContext(StateContext);
   return (
     <div className={styles.wrapper}>
       <Modal isOpen={isOpen} onClose={onCloseModal} clickOutsideToClose={true}>
@@ -54,11 +52,12 @@ const ContactForm: React.FunctionComponent<ContactFormProps> = ({
             <input ref={createForm?.register} type="text" name="tel" id="tel" />
           </div>
           <footer className={styles.footer}>
-            <Button text="Cancelar" kind="secondary" />
+            <Button onClick={onCloseModal} text="Cancelar" kind="secondary" />
             <Button
               disabled={!createForm?.formState.isDirty}
               text="Salvar"
               type="submit"
+              kind="accentPrimary"
             />
           </footer>
         </form>

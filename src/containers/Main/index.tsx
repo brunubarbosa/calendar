@@ -29,50 +29,63 @@ const Main: React.FunctionComponent<{}> = () => {
     setIsModalContactOpen(true);
   };
 
-  const replaceContact = (newContact: FormDataType) => {
-    return contactData.map((item: any) =>
-      item.id === editingContactId ? {...item, ...newContact} : item,
+  const editContactData = (newData: FormDataType): FormDataType => {
+    const editedData: ContacDataType | undefined = contactData.find(
+      ({id}) => editingContactId === id,
     );
+    return {...editedData, ...newData};
+  };
+  const removeHighlight = (itemId: string, newItemId: string) =>
+    itemId === newItemId;
+
+  const toggleHighlight = (contact: ContacDataType) => ({
+    ...contact,
+    recentlyAdded: !contact.recentlyAdded,
+  });
+
+  const scheduleHighlight = (newContact: ContacDataType) => {
+    setTimeout(() => {
+      setContactData((contactData) =>
+        contactData.map((contact) =>
+          removeHighlight(contact.id, newContact.id)
+            ? toggleHighlight(contact)
+            : contact,
+        ),
+      );
+    }, 5000);
   };
 
-  const scheduleHighlight = (
-    newContact: ContacDataType,
-    allContacts: ContacDataType[],
-  ) => {
-    console.log(allContacts);
-    setTimeout(() => {
-      setContactData([...allContacts, {...newContact, recentlyAdded: false}]);
-    }, 1000);
+  const mountNewContactData = (contactData: any) => {
+    const picture = (
+      <ContactPicture content={getFirstLetter(contactData.name)} />
+    );
+    const contactId = uuidv4();
+
+    return {
+      ...contactData,
+      id: contactId,
+      recentlyAdded: true,
+      picture,
+    };
   };
 
   const onSubmitContactForm = (data: FormDataType) => {
-    setEditingContactId(null);
     setIsModalContactOpen(false);
-    const contactId = uuidv4();
-    //melhorar
-    const picture = <ContactPicture content={getFirstLetter(data.name)} />;
-    const newDataToAdd = editingContactId
-      ? replaceContact(data)
-      : [
-          ...contactData,
-          {
-            ...data,
-            id: contactId,
-            recentlyAdded: true,
-            picture,
-          },
-        ];
-    if (!editingContactId)
-      scheduleHighlight(
-        {
-          ...data,
-          id: contactId,
-          recentlyAdded: true,
-          picture,
-        },
-        contactData,
+    const isCreatingNewContact = !Boolean(editingContactId);
+
+    if (isCreatingNewContact) {
+      const newDataToAdd = mountNewContactData(data);
+      setContactData([...contactData, newDataToAdd]);
+
+      scheduleHighlight(newDataToAdd);
+    } else {
+      const editedData = editContactData(data) as ContacDataType;
+      const newContactData = contactData.map((contact) =>
+        contact.id === editedData.id ? editedData : contact,
       );
-    setContactData(newDataToAdd);
+      setContactData(newContactData);
+      setEditingContactId(null);
+    }
   };
 
   const onCloseModal = () => {
@@ -106,7 +119,10 @@ const Main: React.FunctionComponent<{}> = () => {
       }}
     >
       <div className={styles.wrapper}>
-        <Header addNewContact={onAddContact} />
+        <Header
+          showAddNewButton={!!contactData.length}
+          addNewContact={onAddContact}
+        />
         {contactData.length ? (
           <ContactsList />
         ) : (

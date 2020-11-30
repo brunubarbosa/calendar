@@ -1,4 +1,4 @@
-import React, {FormEvent} from 'react';
+import React from 'react';
 import styles from './ContactPicture.module.scss';
 import getRandomColor from '../../utils/getRandomColor';
 

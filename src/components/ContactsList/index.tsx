@@ -6,7 +6,7 @@ import {TableDataType} from '../../types/tableData';
 import {columns} from '../../constants/tableData';
 import {FaPencilAlt, FaTrashAlt} from 'react-icons/fa';
 
-const ContactsList: React.FunctionComponent<{}> = ({}) => {
+const ContactsList: React.FunctionComponent<{}> = () => {
   const {
     contactData,
     editContact,
@@ -31,6 +31,7 @@ const ContactsList: React.FunctionComponent<{}> = ({}) => {
           <>
             {' '}
             <button
+              aria-label="Editar"
               className={styles.actionButton}
               onClick={() => {
                 editContact(id);
@@ -40,6 +41,7 @@ const ContactsList: React.FunctionComponent<{}> = ({}) => {
               <FaPencilAlt />
             </button>
             <button
+              aria-label="Deletar"
               className={styles.actionButton}
               onClick={() => setDeleteContactId(id)}
             >

@@ -4,22 +4,6 @@ import '@testing-library/jest-dom/extend-expect';
 import {StateContext} from '../Main';
 import Main from './index';
 import {act} from 'react-dom/test-utils';
-import {debug} from 'console';
-
-const customRender = (ui: any, {providerProps, ...renderOptions}: any) => {
-  return render(
-    <StateContext.Provider {...providerProps}>{ui}</StateContext.Provider>,
-    renderOptions,
-  );
-};
-
-function renderUserGreeter(user: any) {
-  return render(
-    <StateContext.Provider value={user}>
-      <Main />
-    </StateContext.Provider>,
-  );
-}
 
 describe('Test Main component empty state', () => {
   it('Should find image logo', () => {

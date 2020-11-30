@@ -2,16 +2,28 @@ import React, {FormEvent} from 'react';
 import styles from './Header.module.scss';
 import logo from '../../images/logo.png';
 import Button from '../Button';
+import {FaPlus} from 'react-icons/fa';
 
-const Header: React.FunctionComponent<any> = ({addNewContact}) => {
-  const onSubmitForm = (event: FormEvent<HTMLFormElement>) => {
+interface HeaderType {
+  addNewContact(): void;
+  showAddNewButton: boolean;
+}
+
+const Header: React.FunctionComponent<HeaderType> = ({
+  addNewContact,
+  showAddNewButton,
+}) => {
+  const onSubmitForm = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
-    const searchValue = event.currentTarget.searchValue.value;
   };
   return (
     <header className={styles.header}>
       <img alt="logo" src={logo} />
-      <Button onClick={addNewContact} text="===== " />
+      {showAddNewButton && (
+        <Button onClick={addNewContact}>
+          <FaPlus /> Criar contato
+        </Button>
+      )}
       <form onSubmit={onSubmitForm} className={styles.form}>
         <input
           className={styles.inputSearch}

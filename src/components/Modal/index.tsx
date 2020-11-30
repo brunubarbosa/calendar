@@ -1,5 +1,4 @@
 import React from 'react';
-import Button, {Kind} from '../Button';
 
 import styles from './Modal.module.scss';
 
@@ -10,7 +9,6 @@ export type ModalProps = {
   onButtonFloatClick?: () => void;
   title?: string;
   isButtonFloatDisabled?: boolean;
-  buttonKind?: Kind;
   vw?: number;
   vh?: number;
   clickOutsideToClose: boolean;
@@ -19,7 +17,6 @@ export type ModalProps = {
 const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
-  title,
   buttonFloatText,
   onButtonFloatClick,
   children,

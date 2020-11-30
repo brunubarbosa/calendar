@@ -2,13 +2,7 @@ import React from 'react';
 
 import styles from './Button.module.scss';
 
-export type Kind =
-  | 'primary'
-  | 'secondary'
-  | 'accentPrimary'
-  | 'accentSecondary'
-  | 'negativePrimary'
-  | 'negativeSecondary';
+export type Kind = 'primary' | 'secondary' | 'accentPrimary';
 
 export type Size = 'small' | 'large';
 
@@ -17,7 +11,6 @@ export type Type = 'button' | 'submit' | 'reset';
 export interface ButtonProps {
   text?: string;
   onClick?: () => void;
-  isLoading?: boolean;
   disabled?: boolean;
   kind?: Kind;
   size?: Size;
