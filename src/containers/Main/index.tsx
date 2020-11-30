@@ -52,7 +52,7 @@ const Main: React.FunctionComponent<{}> = () => {
             : contact,
         ),
       );
-    }, 5000);
+    }, 10000);
   };
 
   const mountNewContactData = (contactData: any) => {
@@ -69,14 +69,16 @@ const Main: React.FunctionComponent<{}> = () => {
     };
   };
 
-  const onSubmitContactForm = (data: FormDataType) => {
+  const onCloseModal = () => {
     setIsModalContactOpen(false);
-    const isCreatingNewContact = !Boolean(editingContactId);
+    createForm.reset({});
+  };
 
+  const onSubmitContactForm = (data: FormDataType) => {
+    const isCreatingNewContact = !Boolean(editingContactId);
     if (isCreatingNewContact) {
       const newDataToAdd = mountNewContactData(data);
       setContactData([...contactData, newDataToAdd]);
-
       scheduleHighlight(newDataToAdd);
     } else {
       const editedData = editContactData(data) as ContacDataType;
@@ -86,10 +88,7 @@ const Main: React.FunctionComponent<{}> = () => {
       setContactData(newContactData);
       setEditingContactId(null);
     }
-  };
-
-  const onCloseModal = () => {
-    setIsModalContactOpen(false);
+    onCloseModal();
   };
 
   const deleteContact = () => {
