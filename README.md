@@ -28,5 +28,5 @@ Here is a [Demo](https://quirky-hopper-ab91dd.netlify.app)
 
 Some explanations of technical decisions I made:
 
-- I preferred to use something simpler to manage the state, so I used [react Context](https://reactjs.org/docs/context.html) something I dont use so much
+- I prefered to use something simpler to manage the state, so I used [react Context](https://reactjs.org/docs/context.html) something I dont use so much
 - I preferred to use libs for more complex things that are likely to fall outside the scope of the test, such as a lib to manage the form, on the other hand, I created simpler things, such as the `Modal` component
